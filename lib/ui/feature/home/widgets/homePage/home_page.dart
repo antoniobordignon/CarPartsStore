@@ -1,4 +1,4 @@
-import 'package:basic_app/feature/home/widgets/addBatchPage/add_batch_page.dart';
+import 'package:basic_app/ui/feature/home/widgets/addBatchPage/add_batch_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,8 +51,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.inversePrimary,
+                    backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                     padding: EdgeInsets.symmetric(
                       vertical: screenHeight * 0.02,
                       horizontal: screenWidth * 0.04,

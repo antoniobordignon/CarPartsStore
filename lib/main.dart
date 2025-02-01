@@ -1,4 +1,6 @@
-import 'package:basic_app/feature/home/widgets/homePage/home_page.dart';
+import 'package:basic_app/ui/core/theme/theme_data.dart';
+import 'package:basic_app/ui/feature/home/widgets/homePage/home_page.dart';
+import 'package:basic_app/ui/feature/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        dividerColor: Colors.transparent,
-      ),
-      home: const HomePage(),
+      theme: themeData,
+      home: const LoginPage(),
     );
   }
 }

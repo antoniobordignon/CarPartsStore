@@ -1,4 +1,4 @@
-import 'package:basic_app/common/widgets/show_card.dart';
+import 'package:basic_app/ui/core/components/show_card.dart';
 import 'package:flutter/material.dart';
 
 class AddBatchPage extends StatelessWidget {
@@ -54,8 +54,7 @@ class AddBatchPage extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inversePrimary,
+                        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                         padding: EdgeInsets.symmetric(
                           vertical: screenHeight * 0.01,
                           horizontal: screenWidth * 0.01,
