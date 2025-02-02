@@ -1,4 +1,5 @@
-import 'package:basic_app/ui/feature/home/widgets/addBatchPage/add_batch_page.dart';
+import 'package:basic_app/ui/feature/sales/products/products_list_page.dart';
+import 'package:basic_app/util/navigation/util_navigation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,15 +41,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddBatchPage(
-                          screenHeight: screenHeight,
-                          screenWidth: screenWidth,
-                        ),
-                      ),
-                    );
+                    Navigator.push(context, UtilNavigation.nextPageFromBottom(page: ProductListPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.inversePrimary,

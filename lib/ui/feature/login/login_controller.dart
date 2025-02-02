@@ -1,4 +1,6 @@
 import 'package:basic_app/data/repositories/login_repository.dart';
+import 'package:basic_app/domain/models/user.dart';
+import 'package:basic_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/functions.dart';
 import 'package:result_dart/result_dart.dart';
@@ -24,6 +26,11 @@ class LoginController extends ChangeNotifier {
       return failureOf(Exception('Login ou senha inválidos'));
     }
 
-    return await _repository.login(login!, password!);
+    var res = await _repository.login(login!, password!);
+    if (res.isSuccess()) {
+      currentLoggedUser = User(login: login!, password: password!);
+    }
+
+    return res;
   }
 }

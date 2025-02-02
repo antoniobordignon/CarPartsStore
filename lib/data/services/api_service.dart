@@ -38,12 +38,11 @@ class _ApiService implements IApiService {
 
   @override
   Future<HttpResponseModel> get(String path, {Map<String, String>? headers, Map<String, String>? queryParams, Duration? timeOut}) async {
-    logger.i('GET request to $ApiConstants.host$path with headers: $headers and queryParams: $queryParams');
     try {
       var uri = Uri.http(ApiConstants.host, path, queryParams);
       headers ??= {};
       headers.addAll(authHeaders());
-
+      logger.i('GET request to $ApiConstants.host$path with headers: $headers and queryParams: $queryParams');
       final response = await client.get(uri, headers: headers).timeout(timeout);
       return _toCustomResponse(response);
     } on TimeoutException {

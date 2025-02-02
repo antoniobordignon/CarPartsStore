@@ -159,11 +159,13 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50,
                       child: FilledButton(
                         onPressed: () async {
-                          var api = IApiService(User(login: 'tes', password: 'te'));
-                          var res = await api.post(
-                            '/v1/user/login',
-                          );
-                          log(res.body ?? 'empty');
+                          _controller.onChangedLogin('basicapi');
+                          _controller.onChangedPassword('basicapi');
+                          var res = await _controller.onLogin();
+                          if (res.isSuccess()) {
+                            if (!context.mounted) return;
+                            Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
+                          }
                         },
                         child: Text(
                           'debugButton',
