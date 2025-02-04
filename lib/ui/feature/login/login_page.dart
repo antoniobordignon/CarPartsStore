@@ -159,8 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50,
                       child: FilledButton(
                         onPressed: () async {
-                          _controller.onChangedLogin('basicapi');
-                          _controller.onChangedPassword('basicapi');
+                          _controller.onChangedLogin('postgres');
+                          _controller.onChangedPassword('my321');
                           var res = await _controller.onLogin();
                           if (res.isSuccess()) {
                             if (!context.mounted) return;

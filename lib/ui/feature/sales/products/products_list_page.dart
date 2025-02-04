@@ -32,6 +32,19 @@ class _ProductListPageState extends State<ProductListPage> {
         return LayoutBuilder(
           builder: (context, constraints) {
             return Scaffold(
+              appBar: AppBar(
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondaryContainer,
+                title: Center(
+                  child: Text(
+                    'Lista de produtos',
+                    style: TextStyle(
+                      fontSize: screenWidth * .02,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GridView.builder(
@@ -45,7 +58,10 @@ class _ProductListPageState extends State<ProductListPage> {
                   itemCount: _controller.products.length,
                   itemBuilder: (context, index) {
                     var model = _controller.products[index];
-                    return ProductComponentWidget(description: model.descricao, value: model.valor, stock: model.quantidade);
+                    return ProductComponentWidget(
+                        description: model.descricao,
+                        value: model.valor,
+                        stock: model.quantidade);
                   },
                 ),
               ),
