@@ -4,17 +4,27 @@ import 'package:result_dart/functions.dart';
 import 'package:result_dart/result_dart.dart';
 
 class ConfigRepository {
-  Future<Result<bool>> login() async {
+  Future<Result<bool>> createBackup() async {
     var user = currentLoggedUser;
     final apiService = IApiService(user);
-    var res = await apiService.post('/v1/user/login');
+    var res = await apiService.post('/v1/configuration/database/create-backup');
 
     if (!res.hasSucess) {
-      return failureOf(Exception(res.error ?? res.body ?? 'Não foi possível realizar o login. Motivo desconhecido.'));
+      return failureOf(Exception(res.error ?? res.body ?? 'Não foi possível realizar o backup. Motivo desconhecido.'));
     }
 
     return successOf(true);
+  }
 
-    // Simulate a successful login
+  Future<Result<bool>> restoreBackup() async {
+    var user = currentLoggedUser;
+    final apiService = IApiService(user);
+    var res = await apiService.post('/v1/configuration/database/restore-last-backup');
+
+    if (!res.hasSucess) {
+      return failureOf(Exception(res.error ?? res.body ?? 'Não foi possível realizar o backup. Motivo desconhecido.'));
+    }
+
+    return successOf(true);
   }
 }

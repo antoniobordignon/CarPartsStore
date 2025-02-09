@@ -1,3 +1,6 @@
+import 'package:basic_app/ui/feature/backup/create_backup_button_widget.dart';
+import 'package:basic_app/ui/feature/backup/backup_controller.dart';
+import 'package:basic_app/ui/feature/backup/restore_backup_button_widget.dart';
 import 'package:basic_app/ui/feature/sales/products/products_list_page.dart';
 import 'package:basic_app/ui/feature/sales/sale/sale_controller.dart';
 import 'package:basic_app/ui/feature/sales/sale/sale_list_page.dart';
@@ -22,6 +25,9 @@ class _HomePageState extends State<HomePage> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => SaleController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BackupController(),
         ),
       ],
       builder: (context, child) {
@@ -163,6 +169,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              CreateBackupButtonWidget(),
+              RestoreBackupButtonWidget(),
             ],
           ),
         );
