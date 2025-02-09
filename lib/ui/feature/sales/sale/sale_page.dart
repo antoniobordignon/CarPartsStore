@@ -50,23 +50,37 @@ class _ProductListPageState extends State<SalePage> {
               children: [
                 Expanded(
                   flex: 2,
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      childAspectRatio: (screenWidth / 3) / (screenHeight * 0.1),
-                    ),
-                    itemCount: _controller.products.length,
-                    itemBuilder: (context, index) {
-                      var model = _controller.products[index];
-                      return ProductButtonWidget(
-                        description: model.descricao,
-                        value: model.valor,
-                        onSelect: () => _controller.addProduct(model),
-                      );
-                    },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 21, top: 15),
+                        child: SearchBar(
+                          controller: _controller.searchController,
+                        ),
+                      ),
+                      Expanded(
+                        child: GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            childAspectRatio:
+                                (screenWidth / 3) / (screenHeight * 0.1),
+                          ),
+                          itemCount: _controller.products.length,
+                          itemBuilder: (context, index) {
+                            var model = _controller.products[index];
+                            return ProductButtonWidget(
+                              description: model.descricao,
+                              value: model.valor,
+                              onSelect: () => _controller.addProduct(model),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -88,24 +102,31 @@ class _ProductListPageState extends State<SalePage> {
                             child: ListView.builder(
                               itemCount: _controller.selectedProducts.length,
                               itemBuilder: (context, index) {
-                                var product = _controller.selectedProducts[index];
+                                var product =
+                                    _controller.selectedProducts[index];
                                 return Padding(
                                   padding: EdgeInsets.all(2),
                                   child: Container(
-                                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.onInverseSurface),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onInverseSurface),
                                     child: ListTile(
                                       title: Text(product.descricao),
-                                      subtitle: Text('Valor: ${product.valor} \nQuantidade: ${product.quantidade}'),
+                                      subtitle: Text(
+                                          'Valor: ${product.valor} \nQuantidade: ${product.quantidade}'),
                                       trailing: IconButton(
                                           onPressed: () async {
                                             await showDialog(
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                  title: Text('Remover o produto ${product.descricao} ?'),
+                                                  title: Text(
+                                                      'Remover o produto ${product.descricao} ?'),
                                                   content: ElevatedButton(
                                                     onPressed: () {
-                                                      _controller.removeProduct(product);
+                                                      _controller.removeProduct(
+                                                          product);
                                                       Navigator.pop(context);
                                                     },
                                                     child: Text('Remover'),
@@ -116,7 +137,9 @@ class _ProductListPageState extends State<SalePage> {
                                           },
                                           icon: Icon(
                                             Icons.delete,
-                                            color: Theme.of(context).colorScheme.error,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
                                           )),
                                     ),
                                   ),
@@ -132,62 +155,92 @@ class _ProductListPageState extends State<SalePage> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ChangeNotifierProvider.value(
-                                  value: _controller,
-                                  builder: (context, child) {
-                                    return AlertDialog(
-                                      title: const Text("Selecione o vendedor"),
-                                      content: SizedBox(
-                                        height: screenHeight * 0.5,
-                                        width: screenHeight * 0.3,
-                                        child: ListView.builder(
-                                          physics: const BouncingScrollPhysics(),
-                                          itemCount: _controller.sellers.length,
-                                          itemBuilder: (context, index) {
-                                            var model = _controller.sellers[index];
-                                            return SellerButtonWidget(
-                                              name: model.nome,
-                                              code: model.codigo,
-                                            );
-                                          },
+                            _controller.totalValue <= 0
+                                ? showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Adicione produtos para concluir a venda!',
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.01,
+                                          ),
                                         ),
-                                      ),
-                                      actions: [
-                                        ElevatedButton(
-                                          onPressed: () => Navigator.pop(context),
-                                          child: const Text("Voltar"),
-                                        ),
-                                        FilledButton(
-                                          onPressed: () async {
-                                            var res = await _controller.sendSale();
-                                            if (!context.mounted) return;
-                                            if (res.isError()) {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return AlertDialog(
-                                                    title: const Text("Erro ao enviar a venda"),
-                                                    content: Text(res.exceptionOrNull().toString()),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: const Text("Voltar"),
+                                          ),
+                                        ],
+                                      );
+                                    })
+                                : showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ChangeNotifierProvider.value(
+                                        value: _controller,
+                                        builder: (context, child) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                "Selecione o vendedor"),
+                                            content: SizedBox(
+                                              height: screenHeight * 0.5,
+                                              width: screenHeight * 0.3,
+                                              child: ListView.builder(
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                itemCount:
+                                                    _controller.sellers.length,
+                                                itemBuilder: (context, index) {
+                                                  var model = _controller
+                                                      .sellers[index];
+                                                  return SellerButtonWidget(
+                                                    name: model.nome,
+                                                    code: model.codigo,
                                                   );
                                                 },
-                                              );
-                                              return;
-                                            }
-                                          },
-                                          child: const Text("Finalizar"),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            );
+                                              ),
+                                            ),
+                                            actions: [
+                                              ElevatedButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: const Text("Voltar"),
+                                              ),
+                                              FilledButton(
+                                                onPressed: () async {
+                                                  var res = await _controller
+                                                      .sendSale();
+                                                  if (!context.mounted) return;
+                                                  if (res.isError()) {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              "Erro ao enviar a venda"),
+                                                          content: Text(res
+                                                              .exceptionOrNull()
+                                                              .toString()),
+                                                        );
+                                                      },
+                                                    );
+                                                    return;
+                                                  }
+                                                },
+                                                child: const Text("Finalizar"),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.inversePrimary,
                             padding: EdgeInsets.symmetric(
                               vertical: screenHeight * 0.01,
                               horizontal: screenHeight * 0.01,

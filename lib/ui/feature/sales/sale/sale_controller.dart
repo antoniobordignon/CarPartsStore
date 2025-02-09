@@ -40,8 +40,16 @@ class SaleController extends ChangeNotifier {
 
   int? _selectedSellerId;
 
-  Future<void> fetchProducts([String searchText = '']) async {
-    var res = await _productRepository.getProducts(searchText);
+  final TextEditingController searchController = TextEditingController();
+
+  SaleController() {
+    searchController.addListener(() {
+      fetchProducts(searchController.text);
+    });
+  }
+
+  Future<void> fetchProducts([String? searchText]) async {
+    var res = await _productRepository.getProducts(searchText ?? '');
     _products = res.getOrDefault([]);
 
     notifyListeners();
