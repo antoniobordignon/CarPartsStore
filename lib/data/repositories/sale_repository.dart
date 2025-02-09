@@ -34,7 +34,7 @@ class SaleRepository {
   Future<Result<List<Sale>>> getSales() async {
     List<Sale> sales = [];
 
-    var res = await _api.get('/v1/product/products');
+    var res = await _api.get('/v1/order/orders');
 
     if (!res.hasSucess) {
       return failureOf(Exception(res.error ?? res.body ?? 'Não foi possível buscar as vendas. Motivo desconhecido.'));

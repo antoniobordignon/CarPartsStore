@@ -10,11 +10,21 @@ class SaleListPage extends StatefulWidget {
 }
 
 class _SaleListPageState extends State<SaleListPage> {
+  late SaleController _controller;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((t) async {
+      _controller.getSales();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final _controller = context.watch<SaleController>();
+    _controller = context.watch<SaleController>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Histórico de vendas'),
@@ -22,10 +32,13 @@ class _SaleListPageState extends State<SaleListPage> {
       body: ListView.builder(
         itemCount: _controller.sales.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_controller.sales[index].funcionarioCodigo.toString()),
-            subtitle: Text(_controller.sales[index].horario.toIso8601String()),
-            trailing: Text(_controller.sales[index].valorTotal.toString()),
+          var model = _controller.sales[index];
+          return Card.filled(
+            child: ListTile(
+              title: Text('Funcionário: ' + model.funcionarioCodigo.toString()),
+              subtitle: Text('Horário:' + model.horario.toIso8601String()),
+              trailing: Text('Valor total: ' + model.valorTotal.toString()),
+            ),
           );
         },
       ),
