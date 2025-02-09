@@ -18,6 +18,7 @@ class _ProductListPageState extends State<ProductListPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _controller.fetchProducts();
     });
+    
     super.initState();
   }
 

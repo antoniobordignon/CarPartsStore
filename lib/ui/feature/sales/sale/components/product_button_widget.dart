@@ -28,7 +28,7 @@ class ProductButtonWidget extends StatelessWidget {
         subtitle: Column(
           children: [
             Row(
-              children: [Text(value.toString())],
+              children: [Text('Valor: $value')],
             ),
           ],
         ),
