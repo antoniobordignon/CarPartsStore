@@ -1,6 +1,7 @@
 import 'package:basic_app/ui/feature/backup/create_backup_button_widget.dart';
 import 'package:basic_app/ui/feature/backup/backup_controller.dart';
 import 'package:basic_app/ui/feature/backup/restore_backup_button_widget.dart';
+import 'package:basic_app/ui/feature/home/widgets/homePage/functionally_button_widget.dart';
 import 'package:basic_app/ui/feature/sales/products/products_list_page.dart';
 import 'package:basic_app/ui/feature/sales/sale/sale_controller.dart';
 import 'package:basic_app/ui/feature/sales/sale/sale_list_page.dart';
@@ -46,129 +47,34 @@ class _HomePageState extends State<HomePage> {
           ),
           body: ListView(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.05,
-                    left: screenWidth * 0.02,
-                  ),
-                  child: SizedBox(
-                    width: screenWidth * 0.3,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          UtilNavigation.nextPageFromBottom(
-                              page: ChangeNotifierProvider.value(
-                            value: context.read<SaleController>(),
-                            builder: (context, child) {
-                              return SalePage();
-                            },
-                          )),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                        padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.02,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        'Realizar venda',
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.02,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.05,
-                    left: screenWidth * 0.02,
-                  ),
-                  child: SizedBox(
-                    width: screenWidth * 0.3,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          UtilNavigation.nextPageFromBottom(page: ProductListPage()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                        padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.02,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        'Produtos',
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.02,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.05,
-                    left: screenWidth * 0.02,
-                  ),
-                  child: SizedBox(
-                    width: screenWidth * 0.3,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          UtilNavigation.nextPageFromBottom(
-                              page: ChangeNotifierProvider.value(
-                            value: context.read<SaleController>(),
-                            builder: (context, child) {
-                              return SaleListPage();
-                            },
-                          )),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                        padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.02,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        'Historico de Vendas',
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.02,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              FunctionallyButtonWidget(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      UtilNavigation.nextPageFromBottom(
+                          page: ChangeNotifierProvider.value(
+                        value: context.read<SaleController>(),
+                        builder: (context, child) {
+                          return SalePage();
+                        },
+                      )),
+                    );
+                  },
+                  text: 'Realizar venda'),
+              FunctionallyButtonWidget(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      UtilNavigation.nextPageFromBottom(
+                          page: ChangeNotifierProvider.value(
+                        value: context.read<SaleController>(),
+                        builder: (context, child) {
+                          return SaleListPage();
+                        },
+                      )),
+                    );
+                  },
+                  text: 'Historico de Vendas'),
               CreateBackupButtonWidget(),
               RestoreBackupButtonWidget(),
             ],
