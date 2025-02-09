@@ -237,32 +237,33 @@ class HttpResponseModel {
   });
 
   String get statusMessage {
-    switch (statusCode) {
-      case 200:
-        return 'OK';
-      case 201:
-        return 'Criado';
-      case 204:
-        return 'Sem Conteúdo';
-      case 400:
-        return 'Requisição Inválida';
-      case 401:
-        return 'Não Autorizado';
-      case 403:
-        return 'Proibido';
-      case 404:
-        return 'Não Encontrado';
-      case 408:
-        return 'Tempo de Requisição Esgotado';
-      case 500:
-        return 'Erro Interno do Servidor';
-      case 502:
-        return 'Gateway Inválido';
-      case 503:
-        return 'Serviço indisponível. Verifique sua conexão e tente novamente mais tarde.';
-      default:
-        return 'Status Desconhecido';
-    }
+    return body ?? '';
+    // switch (statusCode) {
+    //   case 200:
+    //     return 'OK';
+    //   case 201:
+    //     return 'Criado';
+    //   case 204:
+    //     return 'Sem Conteúdo';
+    //   case 400:
+    //     return 'Requisição Inválida';
+    //   case 401:
+    //     return 'Não Autorizado';
+    //   case 403:
+    //     return 'Proibido';
+    //   case 404:
+    //     return 'Não Encontrado';
+    //   case 408:
+    //     return 'Tempo de Requisição Esgotado';
+    //   case 500:
+    //     return 'Erro Interno do Servidor';
+    //   case 502:
+    //     return 'Gateway Inválido';
+    //   case 503:
+    //     return 'Serviço indisponível. Verifique sua conexão e tente novamente mais tarde.';
+    //   default:
+    //     return 'Status Desconhecido';
+    // }
   }
 }
 
