@@ -107,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextFieldWithLabelWidget(
                           labelText: 'Senha',
+                          passwordField: true,
                           onChanged: _controller.onChangedPassword,
                         ),
                       ],
@@ -130,7 +131,13 @@ class _LoginPageState extends State<LoginPage> {
                             if (!context.mounted) return;
                             ScaffoldMessenger.of(context).removeCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(result.exceptionOrNull().toString()),
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                result.exceptionOrNull().toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
                             ));
                           }
                           if (result.isSuccess()) {
@@ -147,37 +154,6 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                   ),
                 ],
-              ),
-              Visibility(
-                key: Key("kDebugButton"),
-                visible: kDebugMode,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 400,
-                      height: 50,
-                      child: FilledButton(
-                        onPressed: () async {
-                          _controller.onChangedLogin('postgres');
-                          _controller.onChangedPassword('my321');
-                          var res = await _controller.onLogin();
-                          if (res.isSuccess()) {
-                            if (!context.mounted) return;
-                            Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
-                          }
-                        },
-                        child: Text(
-                          'debugButton',
-                          style: TextStyle(
-                            fontSize: 24,
-                            //color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

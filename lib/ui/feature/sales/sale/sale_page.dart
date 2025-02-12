@@ -202,6 +202,12 @@ class _ProductListPageState extends State<SalePage> {
                                                         return AlertDialog(
                                                           title: const Text("Erro ao enviar a venda"),
                                                           content: Text(res.exceptionOrNull().toString()),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              onPressed: () => Navigator.pop(context),
+                                                              child: const Text("Voltar"),
+                                                            ),
+                                                          ],
                                                         );
                                                       },
                                                     );

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 class TextFieldWithLabelWidget extends StatefulWidget {
   final TextEditingController? controller;
+  final bool? passwordField;
   final bool? readOnly;
   final String? initialValue;
   final Widget? prefixIcon;
@@ -39,6 +40,7 @@ class TextFieldWithLabelWidget extends StatefulWidget {
     this.textInputAction,
     this.minLines,
     this.onSubmit,
+    this.passwordField,
   });
 
   @override
@@ -74,6 +76,7 @@ class _TextFieldWithLabelWidgetState extends State<TextFieldWithLabelWidget> {
           hintText: widget.hintText ?? '',
           sufixIcon: widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
+          passwordField: widget.passwordField ?? false,
           keyBoardType: widget.keyboardType,
           validator: widget.validator,
           inputFormatters: widget.inputFormatters,

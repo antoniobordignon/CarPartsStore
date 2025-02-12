@@ -102,7 +102,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       focusNode: widget.focusNode,
       minLines: widget.minLines,
       onTap: widget.onTap,
-      maxLines: widget.maxLines,
+      maxLines: widget.passwordField ? 1 : widget.maxLines,
       maxLength: widget.maxLength,
       textAlign: widget.textAlign,
       readOnly: widget.readOnly,
