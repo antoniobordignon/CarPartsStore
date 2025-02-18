@@ -27,57 +27,49 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, child) {
         _controller = Provider.of<LoginController>(context);
         return Scaffold(
-            body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Chicão auto peças'.toUpperCase(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 620,
-                width: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(80),
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(70),
-                    bottomLeft: Radius.circular(20),
+            body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Chicão auto peças'.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
                   ),
-                  color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
-                child: Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 620,
+                  width: 700,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(80),
                       topRight: Radius.circular(10),
                       bottomRight: Radius.circular(70),
                       bottomLeft: Radius.circular(20),
                     ),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(80),
-                              topRight: Radius.circular(10),
-                              bottomRight: Radius.circular(70),
-                              bottomLeft: Radius.circular(20),
-                            ),
-                          ),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(70),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(80),
                                 topRight: Radius.circular(10),
@@ -85,77 +77,87 @@ class _LoginPageState extends State<LoginPage> {
                                 bottomLeft: Radius.circular(20),
                               ),
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(80),
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(70),
-                                bottomLeft: Radius.circular(20),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(80),
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(70),
+                                  bottomLeft: Radius.circular(20),
+                                ),
                               ),
-                              child: Image.asset(
-                                width: 400,
-                                height: 400,
-                                fit: BoxFit.fill,
-                                "assets/logo.png",
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(80),
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(70),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                                child: Image.asset(
+                                  width: 400,
+                                  height: 400,
+                                  fit: BoxFit.fill,
+                                  "assets/logo.png",
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        TextFieldWithLabelWidget(
-                          labelText: 'Usuário',
-                          onChanged: _controller.onChangedLogin,
-                        ),
-                        TextFieldWithLabelWidget(
-                          labelText: 'Senha',
-                          passwordField: true,
-                          onChanged: _controller.onChangedPassword,
-                        ),
-                      ],
+                          TextFieldWithLabelWidget(
+                            labelText: 'Usuário',
+                            onChanged: _controller.onChangedLogin,
+                          ),
+                          TextFieldWithLabelWidget(
+                            labelText: 'Senha',
+                            passwordField: true,
+                            onChanged: _controller.onChangedPassword,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 400,
-                    height: 50,
-                    child: FilledButton(
-                        onPressed: () async {
-                          var result = await _controller.onLogin();
-                          if (result.isError()) {
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.red,
-                              content: Text(
-                                result.exceptionOrNull().toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 400,
+                      height: 50,
+                      child: FilledButton(
+                          onPressed: () async {
+                            var result = await _controller.onLogin();
+                            if (result.isError()) {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  result.exceptionOrNull().toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ));
-                          }
-                          if (result.isSuccess()) {
-                            if (!context.mounted) return;
-                            Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
-                          }
-                        },
-                        child: Text(
-                          'Acessar',
-                          style: TextStyle(
-                            fontSize: 24,
-                            //color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        )),
-                  ),
-                ],
-              ),
-            ],
+                              ));
+                            }
+                            if (result.isSuccess()) {
+                              if (!context.mounted) return;
+                              Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
+                            }
+                          },
+                          child: Text(
+                            'Acessar',
+                            style: TextStyle(
+                              fontSize: 24,
+                              //color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
       },
