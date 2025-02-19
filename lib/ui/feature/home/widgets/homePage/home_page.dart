@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
+            leading: SizedBox.shrink(),
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
             title: Center(
               child: Text(
@@ -44,6 +45,38 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Deseja realmente sair?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              child: Text('Sair'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(
+                    Icons.logout_rounded,
+                    size: 36,
+                  ))
+            ],
           ),
           body: ListView(
             children: [

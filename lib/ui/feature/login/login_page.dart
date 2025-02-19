@@ -125,34 +125,39 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       width: 400,
                       height: 50,
-                      child: FilledButton(
-                          onPressed: () async {
-                            var result = await _controller.onLogin();
-                            if (result.isError()) {
-                              if (!context.mounted) return;
-                              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.red,
-                                content: Text(
-                                  result.exceptionOrNull().toString(),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ));
-                            }
-                            if (result.isSuccess()) {
-                              if (!context.mounted) return;
-                              Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
-                            }
-                          },
-                          child: Text(
-                            'Acessar',
-                            style: TextStyle(
-                              fontSize: 24,
-                              //color: Theme.of(context).colorScheme.onSurface,
+                      child: FilledButton(onPressed: () async {
+                        var result = await _controller.onLogin();
+                        if (result.isError()) {
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(
+                              result.exceptionOrNull().toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
-                          )),
+                          ));
+                        }
+                        if (result.isSuccess()) {
+                          if (!context.mounted) return;
+                          Navigator.push(context, UtilNavigation.nextPageFromRight(page: const HomePage()));
+                        }
+                      }, child: Builder(builder: (context) {
+                        if (_controller.state == LoginState.loading) {
+                          return CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          );
+                        }
+                        return Text(
+                          'Acessar',
+                          style: TextStyle(
+                            fontSize: 24,
+                            //color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        );
+                      })),
                     ),
                   ],
                 ),
